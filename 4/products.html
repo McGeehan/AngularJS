@@ -1,0 +1,56 @@
+<!-- broadcast object example -->
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <!-- bootsrap CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+  <!-- AngularJS CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body>
+  <div ng-controller="productCtrl">
+    <table class="table table-responsive table-striped table-bordered">
+      <tr>
+        <th>Name</th>
+        <th>Rate</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr ng-repeat="product in products">
+        <td>{{product.name}}</td>
+        <td>{{product.price}}</td>
+        <td>
+           <input type="button" class="btn btn-success" value="Add to Cart" ng-click="addtoCart(product)">
+        </td>
+        <td>
+           <input type="button" class="btn btn-danger" value="Remove" ng-click="removefromCart(product)">
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- cart -->
+  <div style="background-color: rgb(252, 249, 192); padding: 15px;">
+    <h2><i class="fa fa-shopping-cart"></i> Cart</h2>
+    <div ng-controller="cartCtrl">
+      <label ng-hide="cartItems.length">Cart is Empty</label>
+      <table class="table table-responsive" ng-show="cartItems.length">
+        <tr>
+          <th>Name</th>
+          <th>Rate</th>
+          <th>Qty</th>
+          <th>Amount</th>
+        </tr>
+        <tr ng-repeat="cartItem in cartItems">
+          <td>{{cartItem.name}}</td>
+          <td>{{cartItem.price}}</td>
+          <td>{{cartItem.qty}}</td>
+          <td>{{cartItem.price * cartItem.qty}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

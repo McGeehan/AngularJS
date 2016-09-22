@@ -1,0 +1,125 @@
+<!-- AngularJS Built-in filters example -->
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <title>AngularJS built-in filters example</title>
+
+  <!-- bootsrap CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container" style="background-color: rgb(252, 249, 192);" ng-controller="filterCtrl">
+    <h4>Built in filter examples</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="name">String filter</label>
+        <input type="text" class="form-control" ng-model="data.name" placeholder="Enter Name">
+        <b>lowercase:</b> {{data.name | lowercase}}<br>
+        <b>uppercase:</b> {{data.name | uppercase}}
+      </div>
+      <div class="col-md-6">
+        <label for="name">Numbers &amp; Currency</label>
+        <input type="number" class="form-control" ng-model="data.numbers" placeholder="Enter number">
+        <b>number:</b> {{data.numbers | number:3}}<br>
+        <b>currency:</b> {{data.numbers | currency}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <br><b>Date filters</b><br>
+        <b>Current Date: {{currentDate}}</b><br>
+        <b>yyyy-MM-dd:</b> {{ymdDate}}<br>
+        <b>dd-MMM-yyyy:</b> {{dmyDate}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <br>
+        <b>Products</b>
+          <table class="table table-responsive table-striped table-bordered" style="background-color:#fff;">
+            <tr style="">
+              <th>Name</th>
+              <th>Rate</th>
+            </tr>
+            <tr ng-repeat="product in products">
+              <td>{{product.name}}</td>
+              <td>{{product.price | number:2}}</td>
+            </tr>
+          </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <b>limitTo 2 filter</b>
+        <table class="table table-responsive table-striped table-bordered" style="background-color:#fff;">
+          <tr>
+            <th>Name</th>
+            <th>Rate</th>
+          </tr>
+          <tr ng-repeat="product in products | limitTo:2">
+            <td>{{product.name}}</td>
+            <td>{{product.price | number:2}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+          <b>orderBy 'name' filter</b>
+          <table class="table table-responsive table-striped table-bordered" style="background-color:#fff;">
+            <tr>
+              <th>Name</th>
+              <th>Rate</th>
+            </tr>
+            <tr ng-repeat="product in products | orderBy:'name'">
+              <td>{{product.name}}</td>
+              <td>{{product.price | number:2}}</td>
+            </tr>
+          </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <b>Cheapest</b>
+        <table class="table table-responsive table-striped table-bordered" style="background-color:#fff;">
+          <tr>
+            <th>Name</th>
+            <th>Rate</th>
+          </tr>
+          <tr ng-repeat="product in products | orderBy:'price' | limitTo:1">
+            <td>{{product.name}}</td>
+            <td>{{product.price | number:2}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <b>Costliest</b>
+        <table class="table table-responsive table-striped table-bordered" style="background-color:#fff;">
+          <tr>
+            <th>Name</th>
+            <th>Rate</th>
+          </tr>
+          <tr ng-repeat="product in products | orderBy:'price':true | limitTo:1">
+            <td>{{product.name}}</td>
+            <td>{{product.price | number:2}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- AngularJS CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script>
+    angular.module('myApp', [])
+    .controller("filterCtrl", ['$scope', '$filter', function($scope, $filter) {
+      $scope.currentDate = new Date;
+      $scope.ymdDate = $filter('date')(new Date, 'yyyy-MM-dd');
+      $scope.dmyDate = $filter('date')(new Date, 'dd-MMM-yyyy');
+      $scope.products = [
+                          {name: 'Apple', price: 14.50},
+                          {name: 'Orange', price: 10.25},
+                          {name: 'Banana', price: 8.10}
+                        ]
+    }])
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+  <head>
+    <!-- AngularJS CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script>
+      angular.module('testApp', [])
+      .controller('testCtrl', function($scope) {
+      });
+    </script>
+  </head>
+  <body>
+    <div ng-controller="testCtrl">
+      Name: <input type="text" name="Name" ng-model="name">
+      <br>
+      <h3>Welcome {{name}}!</h3>
+    </div>
+  </body>
+</html>
